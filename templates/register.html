@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}Register - AyurCare Healthcare Copilot{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="card-header bg-success text-white py-4 px-4 text-center">
+                    <div class="brand-icon mx-auto mb-2" style="width: 48px; height: 48px; font-size: 1.5rem;">
+                        <i class="fa-solid fa-leaf text-warning"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1">Create Your AyurCare Account</h3>
+                    <p class="mb-0 text-white-50 small">Personalized Ayurvedic Guidance & Smart Emergency SOS Protection</p>
+                </div>
+                
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" action="{{ url_for('register') }}">
+                        
+                        <!-- Basic Account Info -->
+                        <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                            <i class="fa-solid fa-user me-2 text-success"></i> Account Credentials
+                        </h5>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Full Name <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-id-badge text-muted"></i></span>
+                                <input type="text" name="name" class="form-control" placeholder="e.g. Aarav Sharma" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="fa-solid fa-envelope text-muted"></i></span>
+                                    <input type="email" name="email" class="form-control" placeholder="name@example.com" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="fa-solid fa-lock text-muted"></i></span>
+                                    <input type="password" name="password" class="form-control" placeholder="Create strong password" required minlength="6">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Language & SOS Preference -->
+                        <h5 class="fw-bold text-dark border-bottom pb-2 mb-3 mt-4">
+                            <i class="fa-solid fa-language me-2 text-primary"></i> Language & Emergency Preferences
+                        </h5>
+                        
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">
+                                    Preferred Language <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="fa-solid fa-earth-americas text-primary"></i></span>
+                                    <select name="preferred_language" class="form-select" required>
+                                        <option value="English">English</option>
+                                        <option value="Hindi" selected>हिन्दी (Hindi)</option>
+                                        <option value="Telugu">తెలుగు (Telugu)</option>
+                                        <option value="Tamil">தமிழ் (Tamil)</option>
+                                        <option value="Marathi">मराठी (Marathi)</option>
+                                        <option value="Bengali">বাংলা (Bengali)</option>
+                                        <option value="Kannada">ಕನ್ನಡ (Kannada)</option>
+                                        <option value="Malayalam">മലയാളം (Malayalam)</option>
+                                        <option value="Gujarati">ગુજરાતી (Gujarati)</option>
+                                        <option value="Spanish">Español (Spanish)</option>
+                                        <option value="French">Français (French)</option>
+                                    </select>
+                                </div>
+                                <div class="form-text small">Ayurvedic guidance & AI voice instructions will be provided in this language.</div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">
+                                    Emergency SOS Timeout <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="fa-solid fa-stopwatch text-danger"></i></span>
+                                    <select name="sos_timeout_seconds" class="form-select" required>
+                                        <option value="15">15 Seconds (Rapid Response)</option>
+                                        <option value="30" selected>30 Seconds (Recommended)</option>
+                                        <option value="45">45 Seconds</option>
+                                        <option value="60">60 Seconds (1 Minute)</option>
+                                        <option value="120">120 Seconds (2 Minutes)</option>
+                                    </select>
+                                </div>
+                                <div class="form-text small text-danger">Time allowed to press "I am Safe" before auto-dispatching SOS.</div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Contacts -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Emergency Contact Person</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="fa-solid fa-user-shield text-muted"></i></span>
+                                    <input type="text" name="emergency_contact_name" class="form-control" placeholder="Relative / Guardian Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Emergency Phone Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="fa-solid fa-phone text-muted"></i></span>
+                                    <input type="tel" name="emergency_contact_phone" class="form-control" placeholder="+91 9876543210">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Radio Button Selection -->
+                        <h5 class="fw-bold text-dark border-bottom pb-2 mb-3 mt-4">
+                            <i class="fa-solid fa-user-doctor me-2 text-warning"></i> Professional Healthcare Role
+                        </h5>
+                        
+                        <div class="p-3 bg-light rounded-3 border mb-3">
+                            <label class="form-label fw-bold d-block mb-2">Are you a Doctor or Retired Medical Professional?</label>
+                            
+                            <div class="form-check form-check-inline me-4">
+                                <input class="form-check-input" type="radio" name="is_doctor" id="role_user" value="no" checked onchange="toggleDoctorFields()">
+                                <label class="form-check-label fw-semibold" for="role_user">
+                                    <i class="fa-solid fa-user me-1 text-secondary"></i> No, I am a General User / Patient
+                                </label>
+                            </div>
+                            
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="is_doctor" id="role_doctor" value="yes" onchange="toggleDoctorFields()">
+                                <label class="form-check-label fw-semibold text-success" for="role_doctor">
+                                    <i class="fa-solid fa-stethoscope me-1 text-success"></i> Yes, I am a Doctor / Retired Doctor
+                                </label>
+                            </div>
+                            <div class="form-text mt-2 small">
+                                Registered doctors can contribute clinical remedies to our RAG knowledge base and receive emergency SOS calls.
+                            </div>
+                        </div>
+
+                        <!-- Doctor Specific Details (Toggled dynamically) -->
+                        <div id="doctor_fields" class="p-3 bg-success bg-opacity-10 rounded-3 border border-success border-opacity-25 mb-4" style="display: none;">
+                            <h6 class="fw-bold text-success mb-3">
+                                <i class="fa-solid fa-award me-1"></i> Medical Credentials & Availability
+                            </h6>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Medical Specialization</label>
+                                    <input type="text" name="doctor_specialization" class="form-control" placeholder="e.g. Ayurvedic MD, Panchakarma, Emergency GP">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Medical Registration / License ID</label>
+                                    <input type="text" name="doctor_license_id" class="form-control" placeholder="e.g. AYUR-MED-9921">
+                                </div>
+                            </div>
+                            
+                            <div class="row g-3 mb-2">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Practice City / Region</label>
+                                    <input type="text" name="doctor_clinic_city" class="form-control" placeholder="e.g. Hyderabad, Banjara Hills">
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" name="is_retired" value="1" id="is_retired_check">
+                                        <label class="form-check-label fw-semibold text-dark" for="is_retired_check">
+                                            I am a <strong>Retired Doctor</strong> volunteering for priority SOS emergency support
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-success btn-lg fw-bold rounded-pill shadow">
+                                <i class="fa-solid fa-check-circle me-2"></i> Complete Registration & Activate Copilot
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <span class="text-muted small">Already have an account?</span>
+                        <a href="{{ url_for('login') }}" class="text-success fw-bold text-decoration-none ms-1">Log In Here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function toggleDoctorFields() {
+    const isDoctor = document.getElementById('role_doctor').checked;
+    const docFields = document.getElementById('doctor_fields');
+    if (isDoctor) {
+        docFields.style.display = 'block';
+    } else {
+        docFields.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

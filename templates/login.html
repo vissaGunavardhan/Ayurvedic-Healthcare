@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Log In - AyurCare Healthcare Copilot{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-5">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="card-header bg-success text-white py-4 text-center">
+                    <div class="brand-icon mx-auto mb-2" style="width: 48px; height: 48px; font-size: 1.5rem;">
+                        <i class="fa-solid fa-leaf text-warning"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1">Welcome Back</h3>
+                    <p class="mb-0 text-white-50 small">Access your Ayurvedic consultations & emergency safety hub</p>
+                </div>
+                
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" action="{{ url_for('login') }}">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-envelope text-muted"></i></span>
+                                <input type="email" id="login_email" name="email" class="form-control" placeholder="name@example.com" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-lock text-muted"></i></span>
+                                <input type="password" id="login_password" name="password" class="form-control" placeholder="Enter your password" required>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-success btn-lg fw-bold rounded-pill shadow">
+                                <i class="fa-solid fa-arrow-right-to-bracket me-2"></i> Log In
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Quick Demo Credentials for Fast Testing -->
+                    <div class="p-3 bg-light rounded-3 border mt-4 text-center">
+                        <small class="fw-bold text-muted text-uppercase d-block mb-2">⚡ Quick Test Accounts</small>
+                        <div class="d-flex justify-content-center gap-2">
+                            <button type="button" class="btn btn-sm btn-outline-success rounded-pill" onclick="fillDoctorLogin()">
+                                <i class="fa-solid fa-user-doctor me-1"></i> Retired Doctor
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill" onclick="fillBamsDoctorLogin()">
+                                <i class="fa-solid fa-stethoscope me-1"></i> BAMS Doctor
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <span class="text-muted small">Don't have an account yet?</span>
+                        <a href="{{ url_for('register') }}" class="text-success fw-bold text-decoration-none ms-1">Register Here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function fillDoctorLogin() {
+    document.getElementById('login_email').value = 'dr.rajesh@ayurcare.org';
+    document.getElementById('login_password').value = 'doctor123';
+}
+function fillBamsDoctorLogin() {
+    document.getElementById('login_email').value = 'dr.vikram@ayurcare.org';
+    document.getElementById('login_password').value = 'doctor123';
+}
+</script>
+{% endblock %}

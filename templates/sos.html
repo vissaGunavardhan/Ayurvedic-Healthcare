@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block title %}Live Emergency SOS Radar - Leaflet.js Cascading Dispatch{% endblock %}
+
+{% block head %}
+<style>
+    .leaflet-popup-content-wrapper {
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    .custom-map-legend {
+        background: white;
+        padding: 10px 14px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        font-size: 0.82rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3 pb-2 border-bottom">
+        <div>
+            <h3 class="fw-bold text-dark mb-1 d-flex align-items-center">
+                <i class="fa-solid fa-tower-broadcast text-danger me-2 fa-fade"></i>
+                Live Emergency SOS Radar
+            </h3>
+            <p class="text-muted small mb-0">
+                Leaflet.js GPS Tracking & 3-Tier Cascading Dispatch (Hospital → Police → Retired Doctors)
+            </p>
+        </div>
+        
+        <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
+            <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 py-2 px-3">
+                <i class="fa-solid fa-stopwatch me-1"></i> Auto-Dispatch Timeout: <strong>{{ user.sos_timeout_seconds }}s</strong>
+            </span>
+            <button class="btn btn-outline-primary btn-sm rounded-pill" onclick="centerMapOnUser()">
+                <i class="fa-solid fa-location-crosshairs me-1"></i> Recenter GPS
+            </button>
+        </div>
+    </div>
+
+    <!-- Alert / Location Permission Status Bar -->
+    <div class="alert alert-info py-2 px-3 rounded-3 small d-flex align-items-center justify-content-between mb-3 shadow-sm" id="gps-permission-banner">
+        <div class="d-flex align-items-center">
+            <i class="fa-solid fa-satellite-dish fs-5 text-primary me-2"></i>
+            <span id="gps-status-text">Scanning for GPS location permission to track live Leaflet map coordinates...</span>
+        </div>
+        <button class="btn btn-sm btn-primary rounded-pill py-1 px-3" onclick="requestGpsPermission()">
+            <i class="fa-solid fa-location-arrow me-1"></i> Update GPS
+        </button>
+    </div>
+
+    <!-- Beginner Friendly 3-Step SOS Explainer Bar -->
+    <div class="card border-0 shadow-sm rounded-4 bg-white p-3 mb-4 border-start border-danger border-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-circle bg-danger bg-opacity-10 text-danger p-2 fs-5" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-solid fa-shield-heart"></i>
+                </div>
+                <div>
+                    <h6 class="fw-bold mb-1 text-dark">How the Automated SOS Protection Works:</h6>
+                    <div class="small text-muted d-flex flex-wrap gap-3">
+                        <span><strong>1️⃣ Sensor:</strong> Detects sudden falls, distress clicks, or inactivity.</span>
+                        <span><strong>2️⃣ Timer:</strong> Gives you <strong>{{ user.sos_timeout_seconds }}s</strong> to tap "I Am Safe".</span>
+                        <span><strong>3️⃣ Cascade:</strong> Auto-alerts Nearest Hospital → Police → Retired Doctors.</span>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-sm btn-outline-danger rounded-pill fw-semibold px-3" onclick="window.startAyurCareTour()">
+                <i class="fa-solid fa-compass me-1"></i> Interactive Guide
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="row g-4">
+        <!-- Left: Leaflet.js Interactive Map -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center">
+                    <span class="fw-bold small d-flex align-items-center">
+                        <i class="fa-solid fa-map me-2 text-warning"></i> Real-Time Emergency Radar
+                    </span>
+                    <div class="d-flex gap-2">
+                        <span class="badge bg-danger"><i class="fa-solid fa-hospital me-1"></i> Hospitals</span>
+                        <span class="badge bg-primary"><i class="fa-solid fa-shield me-1"></i> Police</span>
+                        <span class="badge bg-success"><i class="fa-solid fa-user-doctor me-1"></i> App Doctors</span>
+                    </div>
+                </div>
+                <div class="card-body p-0 position-relative">
+                    <div id="sos-map"></div>
+                </div>
+                <div class="card-footer bg-white border-top py-2 px-3 small text-muted d-flex justify-content-between">
+                    <span><i class="fa-solid fa-circle-info text-info me-1"></i> Click on any marker to inspect distance, address, and phone details.</span>
+                    <span id="coordinates-display" class="fw-semibold text-dark">Lat: 17.3850 | Lng: 78.4867</span>
+                </div>
+            </div>
+
+            <!-- Live Cascading Radar Dispatches -->
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h6 class="fw-bold mb-0 text-dark">
+                        <i class="fa-solid fa-route text-danger me-2"></i>
+                        Cascading Emergency Dispatch Hierarchy
+                    </h6>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="p-3 bg-danger bg-opacity-10 rounded-3 border border-danger border-opacity-25 h-100">
+                                <span class="badge bg-danger mb-2">Priority 1 (Primary)</span>
+                                <h6 class="fw-bold text-danger mb-1">Nearby Hospitals</h6>
+                                <p class="small text-muted mb-2">Trauma care & Emergency Ambulance. Scanned via Overpass / Maps API.</p>
+                                <div id="p1-hospital-name" class="fw-semibold small text-dark">Scanning...</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-primary bg-opacity-10 rounded-3 border border-primary border-opacity-25 h-100">
+                                <span class="badge bg-primary mb-2">Priority 2 (Secondary)</span>
+                                <h6 class="fw-bold text-primary mb-1">Nearby Police Station</h6>
+                                <p class="small text-muted mb-2">First response and local emergency dispatch if no hospital is reachable.</p>
+                                <div id="p2-police-name" class="fw-semibold small text-dark">Scanning...</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-success bg-opacity-10 rounded-3 border border-success border-opacity-25 h-100">
+                                <span class="badge bg-success mb-2">Priority 3 (Safety Net)</span>
+                                <h6 class="fw-bold text-success mb-1">Registered Doctors</h6>
+                                <p class="small text-muted mb-2">Verified retired & active doctors registered on this AyurCare application.</p>
+                                <div id="p3-doctor-name" class="fw-semibold small text-dark">Scanning...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Trigger Controls & Live Triage Output -->
+        <div class="col-lg-4">
+            <!-- Manual & Sudden Impact Controls -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4 text-center">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold text-dark mb-1">Emergency Distress Trigger</h5>
+                    <p class="text-muted small mb-4">
+                        Press button below or sudden drop/motion will auto-trigger a <strong>{{ user.sos_timeout_seconds }}s</strong> countdown.
+                    </p>
+                    
+                    <button type="button" class="sos-trigger-btn mb-4" onclick="triggerEmergencyCountdown('Manual Big Red SOS Button Triggered')">
+                        SOS
+                    </button>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-outline-danger btn-sm rounded-pill py-2" onclick="simulateSuddenFall()">
+                            <i class="fa-solid fa-person-falling-burst me-1"></i> Simulate Sudden Fall / Impact Shock
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gemini AI Emergency Triage Assessment Box -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4" id="ai-triage-card" style="display: none;">
+                <div class="card-header bg-danger text-white py-3">
+                    <h6 class="fw-bold mb-0">
+                        <i class="fa-solid fa-heart-pulse me-2"></i>
+                        Gemini AI Emergency Briefing
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div id="ai-triage-text" class="small text-dark fw-semibold mb-3"></div>
+                    <div class="p-2 bg-light rounded-2 border small" id="ai-triage-target"></div>
+                </div>
+            </div>
+
+            <!-- User Emergency Profile Details -->
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h6 class="fw-bold mb-0 text-dark">
+                        <i class="fa-solid fa-address-book text-muted me-2"></i>
+                        Emergency Contacts on File
+                    </h6>
+                </div>
+                <div class="card-body small">
+                    <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
+                        <span class="text-muted">Primary Contact:</span>
+                        <span class="fw-semibold">{{ user.emergency_contact_name or 'Not specified' }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
+                        <span class="text-muted">Contact Phone:</span>
+                        <span class="fw-semibold text-danger">{{ user.emergency_contact_phone or '112 / 108' }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
+                        <span class="text-muted">Preferred Language:</span>
+                        <span class="fw-semibold text-success">{{ user.preferred_language }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">Registered Role:</span>
+                        <span class="fw-semibold">
+                            {% if user.is_doctor %}
+                                <span class="badge bg-warning text-dark"><i class="fa-solid fa-stethoscope"></i> Doctor</span>
+                            {% else %}
+                                Patient / General User
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/sos.js') }}"></script>
+{% endblock %}

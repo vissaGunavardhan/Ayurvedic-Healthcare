@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block title %}Ayurvedic AI Copilot - Step-by-Step Natural Cures (Multilingual & Vision RAG){% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Top Header -->
+    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3 pb-2 border-bottom">
+        <div>
+            <h3 class="fw-bold text-dark mb-1 d-flex align-items-center">
+                <i class="fa-solid fa-leaf text-success me-2"></i>
+                Ayurvedic AI Healthcare Copilot
+            </h3>
+            <p class="text-muted small mb-0">
+                Classical Vedic remedies grounded with RAG & Multimodal Gemini 3.8 Flash
+            </p>
+        </div>
+        
+        <!-- Language Switcher & Controls -->
+        <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
+            <span class="small fw-semibold text-muted"><i class="fa-solid fa-language text-primary me-1"></i> Language:</span>
+            <select id="consult-language" class="form-select form-select-sm shadow-sm" style="width: auto;">
+                <option value="Hindi" {% if user.preferred_language == 'Hindi' %}selected{% endif %}>हिन्दी (Hindi)</option>
+                <option value="English" {% if user.preferred_language == 'English' %}selected{% endif %}>English</option>
+                <option value="Telugu" {% if user.preferred_language == 'Telugu' %}selected{% endif %}>తెలుగు (Telugu)</option>
+                <option value="Tamil" {% if user.preferred_language == 'Tamil' %}selected{% endif %}>தமிழ் (Tamil)</option>
+                <option value="Marathi" {% if user.preferred_language == 'Marathi' %}selected{% endif %}>मराठी (Marathi)</option>
+                <option value="Bengali" {% if user.preferred_language == 'Bengali' %}selected{% endif %}>বাংলা (Bengali)</option>
+                <option value="Kannada" {% if user.preferred_language == 'Kannada' %}selected{% endif %}>ಕನ್ನಡ (Kannada)</option>
+                <option value="Malayalam" {% if user.preferred_language == 'Malayalam' %}selected{% endif %}>മലയാളം (Malayalam)</option>
+                <option value="Gujarati" {% if user.preferred_language == 'Gujarati' %}selected{% endif %}>ગુજરાતી (Gujarati)</option>
+                <option value="Spanish" {% if user.preferred_language == 'Spanish' %}selected{% endif %}>Español (Spanish)</option>
+                <option value="French" {% if user.preferred_language == 'French' %}selected{% endif %}>Français (French)</option>
+            </select>
+            
+            <a href="{{ url_for('sos_view') }}" class="btn btn-sm btn-danger fw-bold rounded-pill px-3 shadow-sm">
+                <i class="fa-solid fa-tower-broadcast fa-fade me-1"></i> SOS Radar
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Workspace -->
+    <div class="row g-4">
+        <!-- Left: Copilot Chat & Consultation Interface -->
+        <div class="col-lg-8">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-white text-success p-2 me-2" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <div>
+                            <span class="fw-bold">AyurCare Virtual Vaidya</span>
+                            <span class="badge bg-light text-success ms-2 small">RAG Grounded</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-outline-light rounded-pill" onclick="clearChat()">
+                            <i class="fa-solid fa-rotate-right me-1"></i> New Query
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Message Stream -->
+                <div class="chat-messages" id="chat-messages-container">
+                    <!-- Welcome Bot Message -->
+                    <div class="chat-message bot">
+                        <div class="chat-bubble">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-success me-2">Namaste {{ user.name }}</span>
+                                <small class="text-muted">Ayurvedic Healthcare Assistant</small>
+                            </div>
+                            <p class="mb-2">
+                                I am your personal Ayurvedic Copilot. Describe your symptoms (e.g. <em>fever, cough, indigestion, joint pain, stress</em>) 
+                                or <strong>upload a photo</strong> of a medicinal herb, tongue coating, skin rash, or medical report.
+                            </p>
+                            <p class="mb-0 small text-muted">
+                                <i class="fa-solid fa-circle-check text-success me-1"></i> 
+                                Guidance will be automatically structured step-by-step in your preferred language: 
+                                <strong class="text-dark">{{ user.preferred_language }}</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Beginner Friendly Guidance Banner -->
+                <div class="px-4 py-2 bg-success bg-opacity-10 border-bottom d-flex align-items-center justify-content-between small">
+                    <div class="d-flex align-items-center text-success fw-semibold">
+                        <i class="fa-solid fa-circle-question me-2 fs-6"></i>
+                        <span>Not sure what to do? Take a 1-minute guided interface walkthrough:</span>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-success rounded-pill px-3 py-1 fw-bold shadow-sm" onclick="window.startAyurCareTour()">
+                        <i class="fa-solid fa-play me-1"></i> Start Tour
+                    </button>
+                </div>
+
+                <!-- Input & Controls Area -->
+                <div class="chat-input-area">
+                    <!-- Quick Symptom Tags with Step 1 Helper -->
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <span class="small fw-bold text-success me-1 align-self-center"><span class="tool-step-number">1</span> Quick Symptoms:</span>
+                        <span class="symptom-chip" onclick="quickSelectSymptom('I have a high fever (Jwara) with body chills and bitter taste in mouth. Please give step-by-step Ayurvedic cure.')">
+                            🌡️ High Fever (Jwara)
+                        </span>
+                        <span class="symptom-chip" onclick="quickSelectSymptom('I have a persistent cold, throat irritation and chest cough (Kasa). How to cure naturally?')">
+                            🤧 Cold & Cough (Kasa)
+                        </span>
+                        <span class="symptom-chip" onclick="quickSelectSymptom('Severe acidity, heartburn and bloating after meals (Amlapitta & Ajirna). Recommend remedies.')">
+                            🔥 Acidity & Indigestion
+                        </span>
+                        <span class="symptom-chip" onclick="quickSelectSymptom('Knee joint pain and morning stiffness (Sandhivata). What herbal oils and decoctions should I use?')">
+                            🦴 Joint Pain (Sandhivata)
+                        </span>
+                        <span class="symptom-chip" onclick="quickSelectSymptom('Severe work stress, anxiety and lack of sleep (Anidra). Recommend calming herbs.')">
+                            🌙 Stress & Insomnia
+                        </span>
+                    </div>
+
+                    <!-- Image Preview Badge (if chosen) -->
+                    <div id="image-preview-container" class="image-preview-badge d-none">
+                        <img id="image-preview-element" src="" alt="Selected image">
+                        <button type="button" class="btn-remove-img" onclick="clearSelectedImage()">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <!-- Input form with Step 2 & 3 Helpers -->
+                    <form id="copilot-form" onsubmit="handleConsultationSubmit(event)">
+                        <!-- Hidden file input -->
+                        <input type="file" id="image-input" name="image" accept="image/*" class="d-none" onchange="handleImageSelection(event)">
+                        
+                        <div class="mb-1 small text-muted d-flex align-items-center">
+                            <span class="tool-step-number">2</span>
+                            <span class="fw-semibold text-dark">Describe your condition (Type, Speak, or Attach Photo):</span>
+                        </div>
+                        
+                        <div class="input-group mb-2 shadow-sm rounded-3 overflow-hidden">
+                            <button type="button" class="btn btn-outline-success px-3" title="Upload Image / Photo of symptom, rash, tongue or herb" onclick="document.getElementById('image-input').click()">
+                                <i class="fa-solid fa-camera me-1"></i> <span class="d-none d-sm-inline small fw-semibold">Photo</span>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary px-3" id="btn-mic" title="Speak symptoms (Speech-to-Text)" onclick="toggleVoiceInput()">
+                                <i class="fa-solid fa-microphone me-1"></i> <span class="d-none d-sm-inline small fw-semibold">Speak</span>
+                            </button>
+                            <textarea id="prompt-input" class="form-control" rows="2" placeholder="e.g., I have fever since yesterday with body ache, bitter tongue and chills. How to cure naturally?"></textarea>
+                            <button type="submit" class="btn btn-success fw-bold px-4" id="btn-submit-consult">
+                                <span id="submit-btn-text"><i class="fa-solid fa-paper-plane me-1"></i> Consult AI</span>
+                                <span id="submit-btn-spinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center small text-muted">
+                            <div>
+                                <i class="fa-solid fa-shield-halved text-success me-1"></i> Grounded in Classical Samhitas + Doctor Clinical Wisdom
+                            </div>
+                            <div id="speech-status" class="text-primary fw-semibold d-none">
+                                <i class="fa-solid fa-wave-square fa-fade me-1"></i> Listening to your voice in {{ user.preferred_language }}...
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: RAG Sources, Doctors & History -->
+        <div class="col-lg-4">
+            <!-- RAG & Emergency Status Card -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h6 class="fw-bold mb-0 text-dark d-flex align-items-center">
+                        <i class="fa-solid fa-database text-success me-2"></i>
+                        RAG Knowledge Base & Doctors
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="p-3 bg-light rounded-3 mb-3 border">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="small text-muted">Classical Formulations:</span>
+                            <span class="badge bg-success">10 Core Conditions</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="small text-muted">Gemini Embeddings:</span>
+                            <span class="badge bg-primary">3,072 D (Active)</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="small text-muted">Registered Doctors:</span>
+                            <span class="badge bg-warning text-dark">Active Responders</span>
+                        </div>
+                    </div>
+
+                    <!-- Instant SOS Trigger Card -->
+                    <div class="p-3 bg-danger bg-opacity-10 border border-danger border-opacity-25 rounded-3 text-center">
+                        <div class="text-danger fw-bold small mb-1">
+                            <i class="fa-solid fa-triangle-exclamation me-1"></i> Need Emergency Assistance?
+                        </div>
+                        <p class="small text-muted mb-2">
+                            Your SOS timeout is set to <strong>{{ user.sos_timeout_seconds }}s</strong>.
+                        </p>
+                        <button type="button" class="btn btn-danger btn-sm w-100 fw-bold rounded-pill" onclick="triggerEmergencyCountdown('Manual Distress Button on Copilot')">
+                            <i class="fa-solid fa-bell me-1"></i> Trigger Emergency SOS
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Consultation History -->
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold mb-0 text-dark">
+                        <i class="fa-solid fa-clock-rotate-left text-muted me-2"></i>
+                        Past Consultations
+                    </h6>
+                    <span class="badge bg-light text-dark">{{ history|length }}</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush rounded-bottom-4" style="max-height: 380px; overflow-y: auto;">
+                        {% if history %}
+                            {% for item in history %}
+                            <div class="list-group-item p-3 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="badge bg-success bg-opacity-10 text-success fw-bold small">
+                                        {{ item.detected_condition }}
+                                    </span>
+                                    <small class="text-muted">{{ item.language_used }}</small>
+                                </div>
+                                <div class="small text-dark fw-semibold text-truncate mb-1">
+                                    {{ item.prompt_text or 'Visual Image Analysis' }}
+                                </div>
+                                <div class="text-muted small" style="font-size: 0.78rem;">
+                                    <i class="fa-regular fa-calendar me-1"></i> {{ item.created_at }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="p-4 text-center text-muted small">
+                                <i class="fa-solid fa-notes-medical fs-3 mb-2 d-block text-secondary"></i>
+                                No previous consultations yet. Ask a question to begin!
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/copilot.js') }}"></script>
+{% endblock %}

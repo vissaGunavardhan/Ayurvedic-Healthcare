@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AyurCare - Personal Healthcare Copilot & Emergency SOS{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Leaflet.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tour.css') }}">
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-ayur sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('index') }}">
+                <span class="brand-icon">
+                    <i class="fa-solid fa-leaf text-warning"></i>
+                </span>
+                <span>Ayur<span class="text-warning">Care</span> Copilot</span>
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'index' %}active fw-bold{% endif %}" href="{{ url_for('index') }}">
+                            <i class="fa-solid fa-house-chimney me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'copilot_view' %}active fw-bold{% endif %}" href="{{ url_for('copilot_view') }}">
+                            <i class="fa-solid fa-wand-magic-sparkles me-1 text-warning"></i> Ayurvedic AI Copilot
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-bold bg-danger bg-opacity-75 rounded-pill px-3 ms-lg-2 my-1 my-lg-0 shadow-sm {% if request.endpoint == 'sos_view' %}active border border-white{% endif %}" href="{{ url_for('sos_view') }}">
+                            <i class="fa-solid fa-tower-broadcast fa-fade me-1"></i> Emergency SOS Radar
+                        </a>
+                    </li>
+                    {% if current_user and current_user.is_doctor %}
+                    <li class="nav-item">
+                        <a class="nav-link text-warning fw-semibold ms-lg-2 {% if request.endpoint == 'doctor_dashboard' %}active fw-bold{% endif %}" href="{{ url_for('doctor_dashboard') }}">
+                            <i class="fa-solid fa-user-doctor me-1"></i> Doctor Portal
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link text-warning fw-bold ms-lg-2" href="javascript:void(0)" onclick="window.startAyurCareTour()" title="Start interactive interface tour">
+                            <i class="fa-solid fa-compass me-1"></i> 💡 Guide Tour
+                        </a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    {% if current_user %}
+                    <li class="nav-item me-2">
+                        <span class="badge bg-light text-dark py-2 px-3 rounded-pill d-inline-flex align-items-center">
+                            <i class="fa-solid fa-language text-success me-1"></i>
+                            <span id="nav-user-lang">{{ current_user.preferred_language }}</span>
+                        </span>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <div class="rounded-circle bg-white text-success d-inline-flex align-items-center justify-content-center me-2 fw-bold" style="width: 32px; height: 32px;">
+                                {{ current_user.name[0] | upper }}
+                            </div>
+                            <span>{{ current_user.name }}</span>
+                            {% if current_user.is_doctor %}
+                            <span class="badge bg-warning text-dark ms-2"><i class="fa-solid fa-stethoscope"></i> Dr</span>
+                            {% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('profile') }}">
+                                    <i class="fa-solid fa-user-gear me-2 text-secondary"></i> Health Profile & Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('sos_view') }}">
+                                    <i class="fa-solid fa-heart-pulse me-2 text-danger"></i> SOS Tracker ({{ current_user.sos_timeout_seconds }}s timer)
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="{{ url_for('logout') }}">
+                                    <i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white me-2" href="{{ url_for('login') }}">
+                            <i class="fa-solid fa-arrow-right-to-bracket me-1"></i> Log In
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-warning text-dark fw-bold rounded-pill px-3 shadow-sm" href="{{ url_for('register') }}">
+                            <i class="fa-solid fa-user-plus me-1"></i> Register Free
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages Container -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show rounded-3 shadow-sm d-flex align-items-center" role="alert">
+                        <i class="fa-solid {% if category == 'success' %}fa-circle-check text-success{% elif category == 'danger' %}fa-circle-exclamation text-danger{% elif category == 'warning' %}fa-triangle-exclamation text-warning{% else %}fa-circle-info text-info{% endif %} fs-5 me-2"></i>
+                        <div>{{ message }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Global Emergency SOS Modal (Cascading Alarm) -->
+    <div class="modal fade" id="globalEmergencyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-danger border-3 shadow-lg">
+                <div class="modal-header bg-danger text-white py-3">
+                    <h5 class="modal-title fw-bold d-flex align-items-center">
+                        <i class="fa-solid fa-triangle-exclamation fa-beat me-2"></i>
+                        CRITICAL HEALTH SOS ALERT
+                    </h5>
+                </div>
+                <div class="modal-body text-center p-4">
+                    <div class="countdown-circle">
+                        <div class="countdown-number" id="global-countdown-val">30</div>
+                        <span class="text-danger fw-bold small text-uppercase">Seconds Left</span>
+                    </div>
+                    
+                    <h5 class="fw-bold text-dark mb-2" id="global-sos-reason-title">Sudden Movement or Distress Detected!</h5>
+                    <p class="text-muted small mb-3">
+                        Are you safe? If you do not respond before the timer expires, 
+                        emergency SOS with your live coordinates will automatically cascade to:
+                    </p>
+                    
+                    <div class="p-3 bg-light rounded-3 text-start small mb-3 border">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="badge bg-danger me-2">Priority 1</span>
+                            <span><strong>Nearest Hospital</strong> (Trauma & Emergency Care)</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="badge bg-primary me-2">Priority 2</span>
+                            <span><strong>Nearby Police Station</strong> (First Responders)</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-success me-2">Priority 3</span>
+                            <span><strong>Registered Retired Doctors</strong> on AyurCare</span>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-success btn-lg fw-bold rounded-pill py-3 shadow" id="btn-global-safe">
+                            <i class="fa-solid fa-shield-heart me-2"></i> I AM SAFE (CANCEL SOS)
+                        </button>
+                        <button type="button" class="btn btn-outline-danger fw-semibold rounded-pill py-2" id="btn-global-dispatch-now">
+                            <i class="fa-solid fa-paper-plane me-1"></i> Send SOS Immediately Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden audio element for emergency beeps -->
+    <audio id="emergency-audio-tone" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-opacity-75 py-4 mt-5 border-top border-secondary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <h6 class="text-white fw-bold mb-1">
+                        <i class="fa-solid fa-leaf text-warning me-1"></i> AyurCare Copilot
+                    </h6>
+                    <small>
+                        AI-Powered Ayurvedic Healthcare, Multimodal RAG Guidance & Real-time Cascading Emergency Dispatch.
+                    </small>
+                </div>
+                <div class="col-md-6 text-center text-md-end small">
+                    <div>Powered entirely by <strong>Gemini 3.8 Flash</strong> & Classical Ayurvedic Wisdom</div>
+                    <div class="text-white-50 mt-1">Holistic health guidance complements clinical medical advice.</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Marked.js for rendering markdown output -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- User Settings Data -->
+    <script>
+        window.CURRENT_USER = {
+            id: {{ current_user.id if current_user else 'null' }},
+            name: "{{ current_user.name if current_user else '' }}",
+            language: "{{ current_user.preferred_language if current_user else 'English' }}",
+            sos_timeout: {{ current_user.sos_timeout_seconds if current_user else 30 }},
+            is_doctor: {{ 'true' if (current_user and current_user.is_doctor) else 'false' }}
+        };
+    </script>
+    
+    <!-- Custom Main JS & Interactive Tour -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tour.js') }}"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

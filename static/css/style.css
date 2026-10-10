@@ -1,0 +1,307 @@
+:root {
+    --primary-ayur: #1b5e20;
+    --primary-light: #2e7d32;
+    --primary-mint: #e8f5e9;
+    --accent-gold: #c5a059;
+    --accent-amber: #ff8f00;
+    --emergency-red: #d32f2f;
+    --emergency-light: #ffebee;
+    --police-blue: #1565c0;
+    --police-light: #e3f2fd;
+    --dark-slate: #1f2937;
+    --bg-light: #f8fafc;
+    --border-color: #e2e8f0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--dark-slate);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+.navbar-ayur {
+    background: linear-gradient(135deg, #0d3b13 0%, #1b5e20 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: -0.5px;
+}
+
+.brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin-right: 8px;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 50%, #ffffff 100%);
+    border-bottom: 1px solid rgba(46, 125, 50, 0.15);
+    padding: 70px 0 50px 0;
+}
+
+.badge-ayur {
+    background-color: #c8e6c9;
+    color: #1b5e20;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+}
+
+/* Feature Cards */
+.feature-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.25s ease;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+    border-color: var(--primary-light);
+}
+
+.feature-icon-wrapper {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+}
+
+/* Chat & Consultation UI */
+.chat-container {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    height: 720px;
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+    color: white;
+    padding: 16px 22px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    background: #fbfdfb;
+}
+
+.chat-message {
+    margin-bottom: 22px;
+    max-width: 88%;
+}
+
+.chat-message.user {
+    margin-left: auto;
+}
+
+.chat-bubble {
+    padding: 16px 20px;
+    border-radius: 18px;
+    line-height: 1.6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.chat-message.user .chat-bubble {
+    background: #1b5e20;
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-message.bot .chat-bubble {
+    background: #ffffff;
+    color: var(--dark-slate);
+    border: 1px solid #e2e8f0;
+    border-bottom-left-radius: 4px;
+}
+
+.chat-input-area {
+    padding: 18px 24px;
+    border-top: 1px solid var(--border-color);
+    background: #ffffff;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+/* Image preview pill */
+.image-preview-badge {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.image-preview-badge img {
+    height: 70px;
+    width: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid var(--primary-light);
+}
+
+.image-preview-badge .btn-remove-img {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #dc3545;
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+    padding: 0;
+    border: none;
+}
+
+/* Quick symptom chips */
+.symptom-chip {
+    cursor: pointer;
+    background: #f1f8e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.symptom-chip:hover {
+    background: #2e7d32;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* SOS Radar & Map */
+#sos-map {
+    height: 520px;
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    z-index: 10;
+}
+
+.sos-trigger-btn {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 800;
+    border: 6px solid #ffcdd2;
+    box-shadow: 0 0 25px rgba(211, 47, 47, 0.5);
+    transition: all 0.3s;
+    animation: pulse-sos 2s infinite;
+}
+
+.sos-trigger-btn:hover {
+    transform: scale(1.08);
+    background: linear-gradient(135deg, #b71c1c 0%, #880e4e 100%);
+    box-shadow: 0 0 35px rgba(211, 47, 47, 0.8);
+}
+
+@keyframes pulse-sos {
+    0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); }
+    70% { box-shadow: 0 0 0 22px rgba(211, 47, 47, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+}
+
+/* Cascading Timeline */
+.cascade-step {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    padding-bottom: 22px;
+}
+
+.cascade-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    bottom: 0;
+    width: 2px;
+    background: #e2e8f0;
+}
+
+.cascade-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-right: 16px;
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+/* Emergency Countdown Modal */
+.countdown-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: var(--emergency-light);
+    border: 6px solid var(--emergency-red);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    animation: countdown-pulse 1s infinite alternate;
+}
+
+@keyframes countdown-pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+.countdown-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--emergency-red);
+    line-height: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .chat-container {
+        height: 580px;
+    }
+    #sos-map {
+        height: 380px;
+    }
+}

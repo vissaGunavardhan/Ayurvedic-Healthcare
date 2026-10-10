@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block title %}AyurCare - Personal Healthcare Copilot & Emergency Response System{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <span class="badge badge-ayur mb-3">
+                    <i class="fa-solid fa-sparkles text-success me-1"></i> AI-Powered Holistic Wellness & Emergency Safety
+                </span>
+                <h1 class="display-4 fw-extrabold text-dark tracking-tight mb-3">
+                    Your Personal <span class="text-success">Ayurvedic Copilot</span> & Emergency SOS Network
+                </h1>
+                <p class="lead text-muted mb-4">
+                    Get authentic, step-by-step natural curing techniques in your preferred language (English, हिन्दी, తెలుగు, தமிழ், etc.) powered by <strong>Gemini 3.8 Flash RAG</strong>. 
+                    Backed by an intelligent <strong>Cascading SOS safety system</strong> that monitors sudden distress and summons nearby hospitals, police stations, and registered retired doctors in real time.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    {% if current_user %}
+                    <a href="{{ url_for('copilot_view') }}" class="btn btn-success btn-lg px-4 rounded-pill shadow-sm fw-semibold">
+                        <i class="fa-solid fa-comment-medical me-2"></i> Consult Ayurvedic Copilot
+                    </a>
+                    <a href="{{ url_for('sos_view') }}" class="btn btn-outline-danger btn-lg px-4 rounded-pill fw-semibold">
+                        <i class="fa-solid fa-tower-broadcast me-2"></i> Live Emergency SOS Hub
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-success btn-lg px-4 rounded-pill shadow-sm fw-semibold">
+                        <i class="fa-solid fa-user-plus me-2"></i> Get Started Free
+                    </a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-success btn-lg px-4 rounded-pill fw-semibold">
+                        <i class="fa-solid fa-arrow-right-to-bracket me-2"></i> Patient & Doctor Login
+                    </a>
+                    {% endif %}
+                </div>
+                
+                <!-- Quick Metric Badges -->
+                <div class="d-flex flex-wrap gap-4 mt-4 pt-3 border-top border-success border-opacity-10">
+                    <div>
+                        <div class="fw-bold text-dark fs-5">100% Classical</div>
+                        <small class="text-muted">Charaka & Sushruta Samhita</small>
+                    </div>
+                    <div>
+                        <div class="fw-bold text-dark fs-5">Multimodal RAG</div>
+                        <small class="text-muted">Text + Image Diagnosis</small>
+                    </div>
+                    <div>
+                        <div class="fw-bold text-danger fs-5">Cascading SOS</div>
+                        <small class="text-muted">Hospital → Police → Doctors</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-5">
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden position-relative" style="background: linear-gradient(145deg, #ffffff 0%, #f4fbf4 100%);">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="rounded-circle bg-success text-white p-3 me-3">
+                                <i class="fa-solid fa-hand-holding-heart fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-0">Live Copilot Preview</h5>
+                                <small class="text-success"><i class="fa-solid fa-circle fa-beat me-1"></i> Active in 10+ Languages</small>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-3 border mb-3 shadow-sm">
+                            <div class="small text-muted mb-1"><i class="fa-solid fa-user me-1"></i> User Inquiry:</div>
+                            <p class="mb-0 fw-semibold text-dark">"I have a sudden high fever (101°F) with chills and headache. What is the step-by-step Ayurvedic cure?"</p>
+                        </div>
+                        
+                        <div class="bg-success bg-opacity-10 p-3 rounded-3 border border-success border-opacity-25 mb-3">
+                            <div class="small text-success fw-bold mb-1">
+                                <i class="fa-solid fa-leaf me-1"></i> AyurCare AI Suggestion (हिन्दी / English):
+                            </div>
+                            <ul class="small mb-0 ps-3 text-secondary">
+                                <li><strong>Step 1 (Langhana):</strong> Light fasting, sip warm water with Tulsi & Sunthi.</li>
+                                <li><strong>Step 2 (Guduchi Kwatha):</strong> Boil Giloy stem with black pepper twice daily.</li>
+                                <li><strong>Step 3 (Sheetal Upachara):</strong> Sandalwood / rose-water forehead compress.</li>
+                                <li><strong>Safety Trigger:</strong> If temp &gt; 103°F or breathing difficulty, instant SOS activates!</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-3 bg-danger bg-opacity-10 border border-danger border-opacity-25 rounded-3 d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-bell text-danger fs-4 me-3"></i>
+                                <div>
+                                    <div class="fw-bold text-danger small">Emergency Protection Active</div>
+                                    <small class="text-muted">Leaflet GPS scanning nearby hospitals</small>
+                                </div>
+                            </div>
+                            <span class="badge bg-danger">Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge badge-ayur mb-2">Comprehensive Features</span>
+            <h2 class="fw-bold">How AyurCare Protects & Heals You</h2>
+            <p class="text-muted mx-auto" style="max-width: 650px;">
+                Combining ancient Vedic medicine with next-generation Gemini 3.8 Flash intelligence and emergency dispatch.
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Feature 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper bg-success bg-opacity-10 text-success">
+                        <i class="fa-solid fa-mortar-pestle"></i>
+                    </div>
+                    <h5 class="fw-bold">Step-by-Step Natural Cures</h5>
+                    <p class="text-muted small">
+                        Step-by-step natural remedies for common conditions (Fever, Cough, Indigestion, Joint Pain, Skin Rashes) with exact preparations, herbs, and Dosha balance.
+                    </p>
+                    <span class="badge bg-light text-success border">Dosha Balancing</span>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper bg-primary bg-opacity-10 text-primary">
+                        <i class="fa-solid fa-language"></i>
+                    </div>
+                    <h5 class="fw-bold">Multilingual Intelligence</h5>
+                    <p class="text-muted small">
+                        Express your symptoms and receive step-by-step guidance in your mother tongue: English, Hindi (हिन्दी), Telugu (తెలుగు), Tamil (தமிழ்), Marathi (मराठी), and more.
+                    </p>
+                    <span class="badge bg-light text-primary border">10+ Indian & Global Languages</span>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper bg-warning bg-opacity-10 text-warning">
+                        <i class="fa-solid fa-camera-retro"></i>
+                    </div>
+                    <h5 class="fw-bold">Multimodal Image Extraction</h5>
+                    <p class="text-muted small">
+                        Snap a photo of your medicinal herb, skin symptom, tongue coating, or lab report. Gemini extracts clinical signs and grounds the RAG remedy.
+                    </p>
+                    <span class="badge bg-light text-warning text-dark border">Gemini Vision RAG</span>
+                </div>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper bg-danger bg-opacity-10 text-danger">
+                        <i class="fa-solid fa-person-falling-burst"></i>
+                    </div>
+                    <h5 class="fw-bold">Sudden Action & Motion Tracker</h5>
+                    <p class="text-muted small">
+                        Monitors sudden motion, fall impact, or physical distress. If the user doesn't respond within their custom configured time range, automatic SOS is dispatched.
+                    </p>
+                    <span class="badge bg-light text-danger border">Motion & Timeout Sensors</span>
+                </div>
+            </div>
+            
+            <!-- Feature 5 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper bg-info bg-opacity-10 text-info">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <h5 class="fw-bold">Leaflet.js Live Geolocation</h5>
+                    <p class="text-muted small">
+                        Interactive Leaflet map tracks your live GPS coordinates, dynamically highlighting nearby hospitals, police stations, and registered doctors.
+                    </p>
+                    <span class="badge bg-light text-info text-dark border">Real-time Map Radar</span>
+                </div>
+            </div>
+            
+            <!-- Feature 6 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper bg-dark bg-opacity-10 text-dark">
+                        <i class="fa-solid fa-sitemap"></i>
+                    </div>
+                    <h5 class="fw-bold">Cascading Priority SOS</h5>
+                    <p class="text-muted small">
+                        Tiered emergency dispatch: Priority 1 to Nearest Hospital. If unavailable, Priority 2 to Police Station. If none, Priority 3 to Registered Retired Doctors!
+                    </p>
+                    <span class="badge bg-light text-dark border">3-Tier Safety Cascade</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Banner -->
+<section class="py-5 bg-success text-white">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Begin Your Holistic Healthcare Journey Today</h2>
+        <p class="lead mb-4 text-white-50">Safe, natural, and protected around the clock with AI and local responders.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ url_for('register') }}" class="btn btn-warning btn-lg text-dark fw-bold rounded-pill px-4 shadow">
+                Create Free Account
+            </a>
+            <a href="{{ url_for('copilot_view') }}" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                Try Copilot Now
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

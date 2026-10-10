@@ -1,0 +1,376 @@
+[
+  {
+    "id": "jwara_fever",
+    "condition_name": "Fever (Jwara)",
+    "ayurvedic_name": "Jwara (ज्वर)",
+    "dosha_involved": "Pitta-Vata aggravation, Ama (toxin) obstruction in Rasa Dhatu",
+    "common_symptoms": [
+      "Elevated body temperature",
+      "Body ache and heaviness",
+      "Loss of appetite (Aruchi)",
+      "Bitter or dry taste in mouth",
+      "Restlessness and chills"
+    ],
+    "step_by_step_remedy": [
+      "Step 1 - Langhana (Digestive Rest): Avoid heavy meals immediately. Allow the digestive fire (Agni) to burn accumulated toxins (Ama). Drink warm boiled water (Ushnodaka) at regular intervals.",
+      "Step 2 - Giloy & Tulsi Decoction (Amrita Kwatha): Take 1 teaspoon of Giloy (Guduchi) powder or 4-inch fresh stem and 7-8 fresh Tulsi (Holy Basil) leaves. Boil in 2 cups (400ml) of water until reduced to half (200ml). Strain, add a pinch of black pepper (Maricha), and drink warm twice daily.",
+      "Step 3 - Ginger & Coriander Water (Dhanyaka-Shunti Toya): Boil 1 teaspoon crushed coriander seeds and half teaspoon dry ginger in 1 liter of water. Sip throughout the day to reduce feverish heat and thirst.",
+      "Step 4 - Cold Compress (Sheetal Upachara): If temperature exceeds 101°F (38.3°C), apply cool (not ice-cold) damp cotton cloth forehead compresses soaked in rose water or plain cool water."
+    ],
+    "herbs_and_ingredients": [
+      "Giloy (Tinospora cordifolia)",
+      "Tulsi (Holy Basil)",
+      "Dry Ginger (Shunti)",
+      "Coriander seeds (Dhanyaka)",
+      "Maha Sudarshan Churna / Vati (Classical antipyretic)"
+    ],
+    "pathya_diet_recommended": [
+      "Peya and Manda (Light rice gruel / kanji)",
+      "Moong dal soup tempered with mild cumin and ginger",
+      "Warm water boiled with Tulsi",
+      "Pomegranate (Dadima) juice diluted"
+    ],
+    "apathya_diet_avoid": [
+      "Heavy, oily, or fried foods",
+      "Milk, cheese, yogurt (curd)",
+      "Cold water, iced beverages, ice creams",
+      "Raw salads and hard-to-digest meats"
+    ],
+    "lifestyle_and_yoga": [
+      "Complete bed rest; avoid physical exertion and direct draft of cold air or AC fan.",
+      "Gentle Shavasana (Corpse pose) for mental relaxation.",
+      "Avoid sleeping during daytime."
+    ],
+    "emergency_escalation_triggers": [
+      "Temperature rises above 103°F (39.4°C) or does not reduce within 48 hours.",
+      "Severe stiff neck, mental confusion, delirium, or seizures.",
+      "Difficulty breathing or chest pain.",
+      "Severe vomiting, inability to keep fluids down, or blood in stool/vomit."
+    ]
+  },
+  {
+    "id": "kasa_cold_cough",
+    "condition_name": "Common Cold & Cough (Pratishyaya & Kasa)",
+    "ayurvedic_name": "Pratishyaya (प्रतिश्याय) and Kasa (कास)",
+    "dosha_involved": "Kapha-Vata imbalance affecting Pranavaha Srotas (respiratory channels)",
+    "common_symptoms": [
+      "Runny or blocked nose",
+      "Throat irritation or hoarseness",
+      "Dry or productive chest cough",
+      "Sneezing and watery eyes",
+      "Mild forehead tension"
+    ],
+    "step_by_step_remedy": [
+      "Step 1 - Golden Turmeric Milk (Haridra Dugdha): Warm 1 cup of cow's milk (or almond milk) with 1/2 teaspoon pure turmeric powder, 1/4 teaspoon black pepper, and 1/2 teaspoon pure desi cow ghee. Drink before bed to soothe throat mucosal lining.",
+      "Step 2 - Sitopaladi & Licorice Honey Paste: Mix 1/2 teaspoon Sitopaladi Churna and 1/4 teaspoon Yashtimadhu (Licorice/Mulethi) powder with 1 teaspoon raw honey. Lick slowly 3 times a day.",
+      "Step 3 - Steam Inhalation with Ajwain/Camphor (Bashpa Sweda): Add 1 teaspoon Carom seeds (Ajwain) or 2 drops eucalyptus oil to boiling water. Inhale steam covered with a towel for 8-10 minutes to open congested sinuses.",
+      "Step 4 - Warm Saline-Turmeric Gargle (Kavala): Gargle with warm water containing rock salt (Saindhava) and a pinch of turmeric 3 times daily."
+    ],
+    "herbs_and_ingredients": [
+      "Turmeric (Haridra)",
+      "Licorice (Yashtimadhu / Mulethi)",
+      "Sitopaladi Churna",
+      "Tulsi (Holy Basil)",
+      "Carom seeds (Ajwain)",
+      "Black Pepper (Maricha)"
+    ],
+    "pathya_diet_recommended": [
+      "Warm soups with black pepper and garlic",
+      "Warm water boiled with ginger",
+      "Steamed seasonal vegetables",
+      "Honey with crushed fresh ginger juice"
+    ],
+    "apathya_diet_avoid": [
+      "Chilled drinks, refrigerated water, ice cream",
+      "Yogurt (curd), banana, heavy dairy at night",
+      "Deep-fried oily snacks",
+      "Cold wind exposure"
+    ],
+    "lifestyle_and_yoga": [
+      "Anulom Vilom (Alternate nostril breathing) for 10 minutes.",
+      "Keep throat and chest covered with warm cotton or woolen clothing.",
+      "Nasya with 2 drops of warm sesame oil or Anu Taila in each nostril."
+    ],
+    "emergency_escalation_triggers": [
+      "Difficulty breathing, wheezing, or stridor.",
+      "Coughing up blood or rust-colored sputum.",
+      "High fever lasting over 3 days.",
+      "Cyanosis (bluish lips or fingernails)."
+    ]
+  },
+  {
+    "id": "ajirna_indigestion_acidity",
+    "condition_name": "Indigestion, Acidity & Bloating (Amlapitta & Ajirna)",
+    "ayurvedic_name": "Amlapitta (अम्लपित्त) and Ajirna (अजीर्ण)",
+    "dosha_involved": "Pitta aggravation with impaired Jatharagni (Digestive Fire) and Samana Vata",
+    "common_symptoms": [
+      "Burning sensation in chest and throat (Heartburn)",
+      "Sour or bitter belching",
+      "Abdominal bloating and heaviness",
+      "Loss of hunger or irregular appetite",
+      "Mild nausea"
+    ],
+    "step_by_step_remedy": [
+      "Step 1 - Cumin, Coriander & Fennel Infusion (CCF Tea): Boil 1/2 teaspoon cumin seeds (Jeera), 1/2 teaspoon coriander seeds (Dhaniya), and 1/2 teaspoon fennel seeds (Saunf) in 500ml water for 5 minutes. Strain and sip warm after meals.",
+      "Step 2 - Fresh Ginger Slice with Rock Salt: Chew a thin slice of fresh ginger sprinkled with a pinch of rock salt (Saindhava Lavana) and 2 drops of lemon juice 15 minutes before lunch to ignite Agni.",
+      "Step 3 - Hingwastak Powder with Ghee: For severe gas and bloating, take 1/2 teaspoon Hingwastak Churna mixed with the first morsel of warm rice and 1/2 teaspoon melted ghee.",
+      "Step 4 - Cold Milk / Coconut Water for Acute Heartburn: Sip 1/2 cup cool organic milk or tender coconut water to extinguish burning Pitta."
+    ],
+    "herbs_and_ingredients": [
+      "Cumin (Jeera)",
+      "Fennel (Saunf)",
+      "Coriander (Dhanyaka)",
+      "Asafoetida (Hing)",
+      "Triphala powder",
+      "Avipattikar Churna (for hyperacidity)"
+    ],
+    "pathya_diet_recommended": [
+      "Old rice, barley, moong dal khichdi",
+      "Tender coconut water, sweet pomegranate",
+      "Amla (Indian gooseberry) juice or preserve (Murabba)",
+      "Freshly prepared thin buttermilk (Takra) with roasted cumin"
+    ],
+    "apathya_diet_avoid": [
+      "Spicy, sour, fermented foods (vinegar, excess pickles, chillies)",
+      "Caffeine, black tea, alcohol, carbonated sodas",
+      "Late-night heavy dinners and lying down immediately after meals"
+    ],
+    "lifestyle_and_yoga": [
+      "Vajrasana (Thunderbolt pose) for 10-15 minutes immediately after eating.",
+      "Eat in a calm, quiet atmosphere without mobile screens.",
+      "Allow at least 3 hours between dinner and sleep."
+    ],
+    "emergency_escalation_triggers": [
+      "Crushing chest pain radiating to left arm or jaw (potential cardiac emergency).",
+      "Vomiting coffee-ground material or bright blood.",
+      "Severe unyielding abdominal pain or rigid abdomen."
+    ]
+  },
+  {
+    "id": "sandhivata_joint_pain",
+    "condition_name": "Joint Pain & Arthritis (Sandhivata)",
+    "ayurvedic_name": "Sandhivata (संधिवात)",
+    "dosha_involved": "Vata vitiation settling in Asthi (bones) and Sandhi (joints), depletion of Shleshaka Kapha",
+    "common_symptoms": [
+      "Joint stiffness, particularly in morning",
+      "Pain and cracking sound (Crepitus) in knee/wrist/finger joints",
+      "Swelling, tenderness, and restricted mobility",
+      "Worsening pain during cold and damp weather"
+    ],
+    "step_by_step_remedy": [
+      "Step 1 - Warm Sesame & Nirgundi Oil Application (Abhyanga): Warm 2-3 tablespoons of Mahanarayan Taila or Nirgundi oil. Gently massage the affected joint in clockwise circular motions for 10 minutes.",
+      "Step 2 - Warm Herbal Compress (Nadi Sweda / Potali): Apply a hot water bag or a warm compress made of carom seeds (Ajwain) tied in a cotton pouch heated on a dry skillet over the massaged joint.",
+      "Step 3 - Turmeric, Fenugreek & Ginger Tonic: Mix 1/2 tsp roasted Fenugreek (Methi) seed powder, 1/2 tsp dry ginger (Shunti), and 1/2 tsp turmeric powder in warm water. Drink once every morning on an empty stomach.",
+      "Step 4 - Castor Oil Detox (Eranda Taila): Take 1 teaspoon food-grade Castor oil in warm ginger tea once a week at bedtime to purge colon Vata and soothe joints."
+    ],
+    "herbs_and_ingredients": [
+      "Shallaki (Boswellia serrata)",
+      "Guggulu (Yograj Guggulu)",
+      "Nirgundi (Vitex negundo)",
+      "Ashwagandha (Withania somnifera)",
+      "Mahanarayan Taila (Classical herbal oil)"
+    ],
+    "pathya_diet_recommended": [
+      "Warm, freshly cooked moist foods with pure cow ghee",
+      "Warm vegetable soups with garlic and cumin",
+      "Sesame seeds (Til) soaked overnight",
+      "Walnuts and almonds soaked in water"
+    ],
+    "apathya_diet_avoid": [
+      "Cold, dry, stale, and refrigerated foods",
+      "Bitter gourd, excess raw salads, gram flour (besan)",
+      "Exposure to freezing AC drafts without warm clothing"
+    ],
+    "lifestyle_and_yoga": [
+      "Gentle joint mobilization (Sukshma Vyayama) without strain.",
+      "Sunbath (Surya Sevana) for 15-20 minutes in early morning sunshine.",
+      "Avoid standing or walking continuously on hard surfaces."
+    ],
+    "emergency_escalation_triggers": [
+      "Sudden inability to bear weight on the joint with intense redness and heat.",
+      "Joint deformity following sudden trauma or fall.",
+      "High fever accompanying hot, swollen joint (possible septic arthritis)."
+    ]
+  },
+  {
+    "id": "anidra_stress_insomnia",
+    "condition_name": "Stress, Anxiety & Insomnia (Manasika Udvega & Anidra)",
+    "ayurvedic_name": "Anidra (अनिद्रा) and Chittodvega (चित्तोद्वेग)",
+    "dosha_involved": "Prana Vata and Sadhaka Pitta disturbance causing hyperactivity of Manas (Mind)",
+    "common_symptoms": [
+      "Difficulty falling asleep or waking up repeatedly",
+      "Restless thoughts, mental overwhelm, and palpitations",
+      "Morning fatigue, low mood, and irritability",
+      "Head tension and eye strain"
+    ],
+    "step_by_step_remedy": [
+      "Step 1 - Ashwagandha & Nutmeg Night Elixir: Mix 1/2 teaspoon organic Ashwagandha powder and a pinch (1/8 tsp) of freshly grated Nutmeg (Jaiphal) into 1 cup of warm cow's milk with 1/2 tsp ghee. Drink 30 minutes before sleep.",
+      "Step 2 - Foot Massage (Pada Abhyanga): Massage the soles of your feet with warm sesame oil, ghee, or Brahmi oil for 5 minutes before bed. This calms Prana Vata and promotes deep sleep.",
+      "Step 3 - Brahmi / Shankhpushpi Herbal Tea: Steep 1 teaspoon Brahmi leaves or Shankhpushpi powder in boiling water for 7 minutes. Sip in early evening to reduce cortisol and quiet mental agitation.",
+      "Step 4 - Nasya with Pure Ghee: Instill 2 drops of lukewarm cow ghee into each nostril before sleep."
+    ],
+    "herbs_and_ingredients": [
+      "Ashwagandha (Withania somnifera)",
+      "Brahmi (Bacopa monnieri)",
+      "Shankhpushpi (Convolvulus pluricaulis)",
+      "Nutmeg (Jaiphal)",
+      "Jatamansi (Nardostachys jatamansi)"
+    ],
+    "pathya_diet_recommended": [
+      "Sweet, unctuous, grounding foods",
+      "Warm milk, dates, soaked raisins and figs",
+      "Basmati rice with ghee, sweet juicy fruits"
+    ],
+    "apathya_diet_avoid": [
+      "Caffeine, coffee, energy drinks, nicotine (especially after 2 PM)",
+      "Excessive blue light exposure from phones/laptops within 1 hour of sleep",
+      "Pungent, dry, and stimulating fast foods"
+    ],
+    "lifestyle_and_yoga": [
+      "Bhramari Pranayama (Humming Bee breath) 7-10 rounds before sleep.",
+      "Yoga Nidra guided relaxation.",
+      "Establish a regular sleep schedule: in bed by 10:00 PM."
+    ],
+    "emergency_escalation_triggers": [
+      "Severe acute panic attack with shortness of breath and chest tightness.",
+      "Thoughts of self-harm or acute psychological crisis.",
+      "Disorientation or acute memory loss."
+    ]
+  },
+  {
+    "id": "twak_skin_allergies",
+    "condition_name": "Skin Rashes, Itching & Allergies (Twak Roga & Kandu)",
+    "ayurvedic_name": "Kandu (कण्डू) and Twak Roga (त्वक् विकार)",
+    "dosha_involved": "Pitta and Rakta (blood) toxicity with Kapha stagnation",
+    "common_symptoms": [
+      "Red itchy patches or hives (Urticaria / Shitapitta)",
+      "Dry, peeling, or inflamed skin",
+      "Burning sensation upon scratching",
+      "Sensitivity to heat and certain foods"
+    ],
+    "step_by_step_remedy": [
+      "Step 1 - Fresh Neem & Turmeric Cleanser: Boil a handful of fresh Neem leaves in 1 liter of water until the water turns green. Let it cool to lukewarm and use it to wash the affected skin area.",
+      "Step 2 - Pure Aloe Vera & Coconut Soothing Gel: Mix 2 tablespoons fresh pure Aloe Vera pulp with 1 teaspoon virgin cold-pressed coconut oil. Gently dab over the rash 3 times daily to extinguish heat and soothe itching.",
+      "Step 3 - Manjistha & Neem Blood Purifying Tonic: Take 1/2 teaspoon Manjistha powder and 1/4 teaspoon Neem powder with warm water twice a day after meals to cleanse Rakta Dhatu.",
+      "Step 4 - Coriander & Cumin Cooling Drink: Soak 1 teaspoon crushed coriander seeds in 1 glass of water overnight. Strain, add 1/2 teaspoon rock sugar (Mishri), and drink in the morning on an empty stomach."
+    ],
+    "herbs_and_ingredients": [
+      "Neem (Azadirachta indica)",
+      "Manjistha (Rubia cordifolia)",
+      "Turmeric (Curcuma longa)",
+      "Aloe Vera (Kumari)",
+      "Khadirarishta / Mahatiktaka Ghrita (Classical formulas)"
+    ],
+    "pathya_diet_recommended": [
+      "Bitter and astringent cooling foods: bitter gourd (Karela), cucumber, bottle gourd (Lauki)",
+      "Moong dal, pomegranate, sweet apples",
+      "Lots of fresh lukewarm water and coconut water"
+    ],
+    "apathya_diet_avoid": [
+      "Fermented foods, curd (yogurt), cheese, pickles, vinegar",
+      "Seafood, red meat, excessive garlic, green chillies",
+      "Synthetic soaps, rough synthetic clothes, scratching with fingernails"
+    ],
+    "lifestyle_and_yoga": [
+      "Sheetali and Sheetkari cooling Pranayama for 10 minutes.",
+      "Wear loose, breathable pure cotton garments.",
+      "Avoid direct midday sun exposure."
+    ],
+    "emergency_escalation_triggers": [
+      "Rapidly spreading hives accompanied by swelling of lips, tongue, or throat (Anaphylaxis).",
+      "Difficulty breathing or swallowing.",
+      "Blistering skin lesions with high fever or pus discharge."
+    ]
+  },
+  {
+    "id": "shiroshula_headache",
+    "condition_name": "Headache & Migraine (Shiroshula & Suryavarta)",
+    "ayurvedic_name": "Shiroshula (शिरःशूल) and Ardhavabhedaka (अर्धावभेदक)",
+    "dosha_involved": "Vata-Pitta vitiation in Uttamanga (Head) with constriction of cranial channels",
+    "common_symptoms": [
+      "Throbbing one-sided or frontal headache",
+      "Sensitivity to bright light (Photophobia) and loud sounds",
+      "Tension in neck and temples",
+      "Nausea or visual aura before headache onset"
+    ],
+    "step_by_step_remedy": [
+      "Step 1 - Sandalwood or Ginger Temple Paste: For Pitta/throbbing heat headache, apply pure Sandalwood (Chandan) paste mixed with rose water on temples and forehead. For Vata/cold tension headache, apply a warm mild ginger powder paste.",
+      "Step 2 - Nasya Therapy (Nasal Drops): Lie back and instill 2 drops of lukewarm Cow's Ghee or Shadbindu Taila into each nostril. Inhale gently and rest for 10 minutes.",
+      "Step 3 - Brahmi & Chamomile Calming Infusion: Steep 1/2 teaspoon Brahmi and 1/2 teaspoon dry ginger in warm water with a teaspoon of rock sugar. Drink in a quiet, dark room.",
+      "Step 4 - Acupressure / Marma Therapy: Gently press the Sthapani Marma (the point between the eyebrows) and Adhipati Marma (crown of the head) with circular thumb pressure for 2 minutes."
+    ],
+    "herbs_and_ingredients": [
+      "Brahmi (Bacopa monnieri)",
+      "Sandalwood (Chandana)",
+      "Shadbindu Taila",
+      "Desi Cow Ghee (Go Ghrita)",
+      "Godanti Bhasma (under clinical supervision)"
+    ],
+    "pathya_diet_recommended": [
+      "Warm cow's milk with cardamom and dates",
+      "Fresh coconut water, sweet grapes, soaked raisins",
+      "Warm vegetable soups seasoned with cumin"
+    ],
+    "apathya_diet_avoid": [
+      "Aged cheeses, chocolate, processed monosodium glutamate (MSG)",
+      "Skipping meals or erratic eating times (fasting triggers Pitta headache)",
+      "Straining eyes on small screens in dark rooms"
+    ],
+    "lifestyle_and_yoga": [
+      "Rest in a quiet, dimly lit, well-ventilated room.",
+      "Gentle neck stretching and shoulder rolls.",
+      "Nadi Shodhana Pranayama for balanced neurological flow."
+    ],
+    "emergency_escalation_triggers": [
+      "Sudden catastrophic 'thunderclap' headache with maximum intensity in seconds.",
+      "Headache associated with fever, neck stiffness, and confusion (Meningitis sign).",
+      "Headache accompanied by numbness, slurred speech, or weakness on one side of body (Stroke warning)."
+    ]
+  },
+  {
+    "id": "madhumeha_diabetes",
+    "condition_name": "High Blood Sugar / Diabetes Support (Madhumeha)",
+    "ayurvedic_name": "Madhumeha (मधुमेह - Prameha category)",
+    "dosha_involved": "Kapha-Vata dominance with Medovaha Srotas (fat tissue) imbalance",
+    "common_symptoms": [
+      "Frequent urination (Prabhuta Mutrata)",
+      "Excessive thirst and dry mouth",
+      "Unexplained fatigue and lethargy",
+      "Slow wound healing and tingling in hands/feet"
+    ],
+    "step_by_step_remedy": [
+      "Step 1 - Fenugreek Seed Infusion: Soak 1 tablespoon Fenugreek (Methi) seeds in 1 glass of water overnight. In the morning, drink the water and chew the soft seeds thoroughly.",
+      "Step 2 - Jamun Seed & Bitter Gourd Powder: Mix equal parts of Jamun seed powder, Karela (Bitter Gourd) powder, and Gurmar (Gymnema sylvestre) powder. Take 1 teaspoon with warm water 30 minutes before lunch and dinner.",
+      "Step 3 - Vijaysar Water (Pterocarpus marsupium): Soak a piece of Vijaysar wood in water overnight in an earthen pot. Drink the herbalized red water on an empty stomach.",
+      "Step 4 - Amla & Turmeric Tonic (Nisha-Amalaki): Mix 1 teaspoon fresh Amla juice (or powder) with 1/2 teaspoon pure turmeric powder. Take every morning to protect microvascular channels."
+    ],
+    "herbs_and_ingredients": [
+      "Gurmar (Gymnema sylvestre - the sugar destroyer)",
+      "Jamun (Syzygium cumini)",
+      "Karela (Momordica charantia)",
+      "Vijaysar (Pterocarpus marsupium)",
+      "Nisha-Amalaki (Turmeric + Indian Gooseberry)"
+    ],
+    "pathya_diet_recommended": [
+      "Barley (Yava), millets (Ragi, Jowar), brown rice in small portions",
+      "Bitter vegetables: Karela, Methi leaves, pointed gourd (Parwal)",
+      "Moong dal, horse gram (Kulthi), roasted chana",
+      "Cinnamon water and green tea"
+    ],
+    "apathya_diet_avoid": [
+      "Refined white sugar, sweets, sugarcane juice, jaggery in excess",
+      "Refined flours (Maida), white bread, fried potatoes",
+      "Sedentary sleeping during daytime (Divasvapna)"
+    ],
+    "lifestyle_and_yoga": [
+      "Daily brisk walking for 45 minutes in fresh morning air.",
+      "Surya Namaskar (Sun Salutations), Mandukasana (Frog pose), and Ardha Matsyendrasana.",
+      "Kapalabhati Pranayama (15 minutes daily under guidance)."
+    ],
+    "emergency_escalation_triggers": [
+      "Blood sugar spikes > 300 mg/dL or drops < 70 mg/dL (hypoglycemia with cold sweat, tremors, confusion).",
+      "Fruity breath odor with rapid deep breathing (Diabetic Ketoacidosis).",
+      "Non-healing ulcers with blackish skin discoloration on feet."
+    ]
+  }
+]

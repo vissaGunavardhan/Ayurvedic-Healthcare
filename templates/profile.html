@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}User Health Profile & Emergency Settings - AyurCare{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row g-4">
+        <!-- Left: Profile Settings Form -->
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-success text-white py-3 px-4">
+                    <h5 class="fw-bold mb-0">
+                        <i class="fa-solid fa-user-gear me-2"></i> Health Profile & Settings
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ url_for('profile') }}">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Full Name</label>
+                            <input type="text" class="form-control" value="{{ user.name }}" disabled>
+                            <div class="form-text small">Registered full name</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Email Address</label>
+                            <input type="email" class="form-control" value="{{ user.email }}" disabled>
+                            <div class="form-text small">Associated login email</div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold text-primary">
+                                    <i class="fa-solid fa-language me-1"></i> Preferred Language
+                                </label>
+                                <select name="preferred_language" class="form-select">
+                                    <option value="English" {% if user.preferred_language == 'English' %}selected{% endif %}>English</option>
+                                    <option value="Hindi" {% if user.preferred_language == 'Hindi' %}selected{% endif %}>हिन्दी (Hindi)</option>
+                                    <option value="Telugu" {% if user.preferred_language == 'Telugu' %}selected{% endif %}>తెలుగు (Telugu)</option>
+                                    <option value="Tamil" {% if user.preferred_language == 'Tamil' %}selected{% endif %}>தமிழ் (Tamil)</option>
+                                    <option value="Marathi" {% if user.preferred_language == 'Marathi' %}selected{% endif %}>मराठी (Marathi)</option>
+                                    <option value="Bengali" {% if user.preferred_language == 'Bengali' %}selected{% endif %}>বাংলা (Bengali)</option>
+                                    <option value="Kannada" {% if user.preferred_language == 'Kannada' %}selected{% endif %}>ಕನ್ನಡ (Kannada)</option>
+                                    <option value="Malayalam" {% if user.preferred_language == 'Malayalam' %}selected{% endif %}>മലയാളം (Malayalam)</option>
+                                    <option value="Gujarati" {% if user.preferred_language == 'Gujarati' %}selected{% endif %}>ગુજરાતી (Gujarati)</option>
+                                    <option value="Spanish" {% if user.preferred_language == 'Spanish' %}selected{% endif %}>Español (Spanish)</option>
+                                    <option value="French" {% if user.preferred_language == 'French' %}selected{% endif %}>Français (French)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold text-danger">
+                                    <i class="fa-solid fa-stopwatch me-1"></i> SOS Emergency Timeout
+                                </label>
+                                <select name="sos_timeout_seconds" class="form-select">
+                                    <option value="15" {% if user.sos_timeout_seconds == 15 %}selected{% endif %}>15 Seconds (Rapid)</option>
+                                    <option value="30" {% if user.sos_timeout_seconds == 30 %}selected{% endif %}>30 Seconds (Default)</option>
+                                    <option value="45" {% if user.sos_timeout_seconds == 45 %}selected{% endif %}>45 Seconds</option>
+                                    <option value="60" {% if user.sos_timeout_seconds == 60 %}selected{% endif %}>60 Seconds (1 Min)</option>
+                                    <option value="120" {% if user.sos_timeout_seconds == 120 %}selected{% endif %}>120 Seconds (2 Min)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Contacts -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Emergency Contact Person</label>
+                                <input type="text" name="emergency_contact_name" class="form-control" value="{{ user.emergency_contact_name or '' }}" placeholder="Name">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Emergency Contact Phone</label>
+                                <input type="tel" name="emergency_contact_phone" class="form-control" value="{{ user.emergency_contact_phone or '' }}" placeholder="+91 9876543210">
+                            </div>
+                        </div>
+
+                        <!-- Doctor Role Selection -->
+                        <div class="p-3 bg-light rounded-3 border mb-3">
+                            <label class="form-label fw-bold d-block mb-2">Are you a Doctor / Retired Doctor?</label>
+                            
+                            <div class="form-check form-check-inline me-4">
+                                <input class="form-check-input" type="radio" name="is_doctor" id="prof_user" value="no" {% if not user.is_doctor %}checked{% endif %} onchange="toggleDoctorFieldsProfile()">
+                                <label class="form-check-label fw-semibold" for="prof_user">
+                                    General User / Patient
+                                </label>
+                            </div>
+                            
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="is_doctor" id="prof_doctor" value="yes" {% if user.is_doctor %}checked{% endif %} onchange="toggleDoctorFieldsProfile()">
+                                <label class="form-check-label fw-semibold text-success" for="prof_doctor">
+                                    <i class="fa-solid fa-stethoscope me-1 text-success"></i> Doctor / Retired Doctor
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Specific Fields -->
+                        <div id="profile_doctor_fields" class="p-3 bg-success bg-opacity-10 rounded-3 border border-success border-opacity-25 mb-4" style="{% if not user.is_doctor %}display: none;{% endif %}">
+                            <h6 class="fw-bold text-success mb-3">Medical Credentials</h6>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Specialization</label>
+                                    <input type="text" name="doctor_specialization" class="form-control form-control-sm" value="{{ user.doctor_specialization or '' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">License / Registration ID</label>
+                                    <input type="text" name="doctor_license_id" class="form-control form-control-sm" value="{{ user.doctor_license_id or '' }}">
+                                </div>
+                            </div>
+                            <div class="row g-3 mb-2">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Clinic City</label>
+                                    <input type="text" name="doctor_clinic_city" class="form-control form-control-sm" value="{{ user.doctor_clinic_city or '' }}">
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" name="is_retired" value="1" id="is_retired_check_prof" {% if user.is_retired %}checked{% endif %}>
+                                        <label class="form-check-label fw-semibold small text-dark" for="is_retired_check_prof">
+                                            Retired Doctor Volunteer
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success fw-bold rounded-pill px-4 shadow-sm">
+                            <i class="fa-solid fa-floppy-disk me-1"></i> Save Profile Settings
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Activity & SOS History -->
+        <div class="col-lg-5">
+            <!-- Recent SOS Alerts -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h6 class="fw-bold mb-0 text-danger">
+                        <i class="fa-solid fa-tower-broadcast me-2"></i>
+                        Recent SOS Alerts Log
+                    </h6>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush rounded-bottom-4">
+                        {% if sos_history %}
+                            {% for alert in sos_history %}
+                            <div class="list-group-item p-3 border-bottom small">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="badge {% if 'DISPATCH' in alert.status %}bg-danger{% elif 'CANCEL' in alert.status %}bg-success{% else %}bg-warning text-dark{% endif %}">
+                                        {{ alert.status }}
+                                    </span>
+                                    <span class="text-muted">{{ alert.created_at }}</span>
+                                </div>
+                                <div class="text-dark fw-semibold">
+                                    Trigger: {{ alert.trigger_type }}
+                                </div>
+                                {% if alert.dispatched_target_name %}
+                                <div class="text-danger small mt-1">
+                                    <strong>Dispatched To:</strong> {{ alert.dispatched_target_name }} ({{ alert.dispatched_to_type }})
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="p-3 text-center text-muted small">No SOS alerts recorded. You are protected!</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Consultations -->
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h6 class="fw-bold mb-0 text-success">
+                        <i class="fa-solid fa-notes-medical me-2"></i>
+                        Recent Ayurvedic Guidance
+                    </h6>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush rounded-bottom-4">
+                        {% if history %}
+                            {% for c in history %}
+                            <div class="list-group-item p-3 border-bottom small">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="badge bg-success bg-opacity-10 text-success fw-bold">{{ c.detected_condition }}</span>
+                                    <span class="text-muted">{{ c.language_used }}</span>
+                                </div>
+                                <div class="text-dark text-truncate">{{ c.prompt_text or 'Visual Inspection' }}</div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="p-3 text-center text-muted small">No consultation history yet.</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function toggleDoctorFieldsProfile() {
+    const isDoc = document.getElementById('prof_doctor').checked;
+    const docFields = document.getElementById('profile_doctor_fields');
+    if (isDoc) {
+        docFields.style.display = 'block';
+    } else {
+        docFields.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

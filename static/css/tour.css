@@ -1,0 +1,203 @@
+/* AyurCare Interactive Guided Onboarding Tour & Navigation Tips Styles */
+
+/* Backdrop overlay */
+.tour-backdrop-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(4px);
+    z-index: 9998;
+    pointer-events: all;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tour-backdrop-overlay.active {
+    opacity: 1;
+}
+
+/* Spotlight cut-out hole */
+.tour-spotlight-box {
+    position: fixed;
+    z-index: 9999;
+    border-radius: 14px;
+    box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.75), 0 0 25px rgba(46, 125, 50, 0.8);
+    border: 3px solid #2e7d32;
+    pointer-events: none;
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    animation: spotlight-pulse 2s infinite alternate;
+}
+
+@keyframes spotlight-pulse {
+    0% { border-color: #2e7d32; box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.75), 0 0 15px rgba(46, 125, 50, 0.6); }
+    100% { border-color: #ffb300; box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.75), 0 0 30px rgba(255, 179, 0, 0.9); }
+}
+
+/* Tour Tooltip Popover Card */
+.tour-popover-card {
+    position: fixed;
+    z-index: 10000;
+    width: 360px;
+    max-width: calc(100vw - 32px);
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(46, 125, 50, 0.2);
+    padding: 22px;
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    pointer-events: all;
+}
+
+.tour-popover-card.active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.tour-badge-step {
+    background: #e8f5e9;
+    color: #1b5e20;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.tour-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tour-description {
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.55;
+    margin-bottom: 18px;
+}
+
+.tour-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.tour-progress-dots {
+    display: flex;
+    gap: 5px;
+}
+
+.tour-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    transition: all 0.2s ease;
+}
+
+.tour-dot.active {
+    width: 20px;
+    border-radius: 10px;
+    background: #1b5e20;
+}
+
+/* Floating Tour Trigger Button on Screen */
+.floating-tour-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1050;
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 8px 24px rgba(27, 94, 32, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.floating-tour-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 12px 30px rgba(27, 94, 32, 0.55);
+    background: linear-gradient(135deg, #0d3b13 0%, #1b5e20 100%);
+}
+
+.floating-tour-beacon {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 14px;
+    height: 14px;
+    background: #ff9800;
+    border: 2px solid white;
+    border-radius: 50%;
+    animation: beacon-ping 1.5s infinite;
+}
+
+@keyframes beacon-ping {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.6); opacity: 0.4; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Quick Tool Helper Labels */
+.tool-step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #2e7d32;
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 800;
+    margin-right: 6px;
+    box-shadow: 0 2px 6px rgba(46, 125, 50, 0.3);
+}
+
+/* Voice reading indicator on popover */
+.tour-audio-toggle {
+    cursor: pointer;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s;
+}
+
+.tour-audio-toggle:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.tour-audio-toggle.speaking {
+    background: #e0f2fe;
+    color: #0369a1;
+    border-color: #bae6fd;
+}
